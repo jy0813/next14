@@ -1,5 +1,4 @@
-import styles from "@/app/page.module.css";
-
+import styles from "@/app/(beforeLogin)/_components/main.module.css";
 interface BeforeLoginLayoutProps {
   children: React.ReactNode;
   modal: React.ReactNode;
