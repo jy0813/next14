@@ -3,6 +3,8 @@ import style from "@/app/(afterLogin)/layout.module.css";
 import Logo from "../../../public/logo.jpeg";
 import Image from "next/image";
 import Link from "next/link";
+import NavMenu from "./_component/NavMenu";
+import LogoutButton from "./_component/LogoutButton";
 
 export default function AfterLoginLayout({ children }: PropsWithChildren) {
   return (
@@ -15,6 +17,15 @@ export default function AfterLoginLayout({ children }: PropsWithChildren) {
                 <Image src={Logo} alt="로고" width={40} height={40} />
               </div>
             </Link>
+            <nav>
+              <ul>
+                <NavMenu />
+                <Link href="/compose/tweet" className={style.postButton}>
+                  게시하기
+                </Link>
+              </ul>
+            </nav>
+            <LogoutButton />
           </div>
         </section>
       </header>
