@@ -8,7 +8,7 @@ import { faker } from "@faker-js/faker";
 export default function Default() {
   const photo = {
     imageId: 1,
-    link: faker.image.urlLoremFlickr(),
+    link: faker.image.urlLoremFlickr({ category: "babyPig" }),
     Post: {
       content: faker.lorem.text(),
     },
