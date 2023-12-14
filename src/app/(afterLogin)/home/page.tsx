@@ -5,7 +5,7 @@ import TabProvider from "./_component/TabProvider";
 import PostForm from "./_component/PostForm";
 import Post from "../_component/Post";
 
-const Page = () => {
+const Home = () => {
   return (
     <main className={style.main}>
       <TabProvider>
@@ -26,4 +26,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Home;

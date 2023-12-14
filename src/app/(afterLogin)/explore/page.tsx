@@ -1,7 +1,7 @@
 import React from "react";
 
 const Page = () => {
-  return <div></div>;
+  return <div>탐색</div>;
 };
 
 export default Page;
