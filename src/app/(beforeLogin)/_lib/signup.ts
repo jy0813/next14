@@ -39,6 +39,11 @@ const signup = async (
     }
     console.log(await response.json());
     shouldRedirect = true;
+    await signIn("credentials", {
+      username: formData.get("id"),
+      password: formData.get("password"),
+      redirect: false,
+    });
   } catch (err) {
     console.error(err);
     return { message: null };
@@ -46,11 +51,6 @@ const signup = async (
 
   if (shouldRedirect) {
     redirect("/home"); //try /catch 문 안에서는 x
-    await signIn("credentials", {
-      username: formData.get("id"),
-      password: formData.get("password"),
-      redirect: false,
-    });
   }
   return { message: null };
 };
