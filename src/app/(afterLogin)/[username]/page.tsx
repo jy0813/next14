@@ -25,12 +25,12 @@ export default function Profile() {
         <button className={style.followButton}>팔로우</button>
       </div>
       <div>
+        {/* <Post />
         <Post />
         <Post />
         <Post />
         <Post />
-        <Post />
-        <Post />
+        <Post /> */}
       </div>
     </main>
   );

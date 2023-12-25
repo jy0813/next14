@@ -10,6 +10,8 @@ function RQProvider({ children }: PropsWithChildren) {
       defaultOptions: {
         queries: {
           refetchOnWindowFocus: false,
+          retryOnMount: true,
+          refetchOnReconnect: false,
           retry: false,
         },
       },
