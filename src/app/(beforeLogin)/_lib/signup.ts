@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
 
 const signup = async (
   prevState: { message: string | null },
@@ -45,6 +46,11 @@ const signup = async (
 
   if (shouldRedirect) {
     redirect("/home"); //try /catch 문 안에서는 x
+    await signIn("credentials", {
+      username: formData.get("id"),
+      password: formData.get("password"),
+      redirect: false,
+    });
   }
   return { message: null };
 };
