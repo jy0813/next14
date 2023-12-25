@@ -9,27 +9,14 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-
-async function getPostRecommend() {
-  const res = await fetch(`http://localhost:9090:api/postRecommends`, {
-    next: {
-      tags: ["posts", "recommends"],
-    },
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import { getPostRecommends } from "./_lib/getPostRecommends";
+import PostRecommends from "./_component/PostRecommends";
 
 const Home = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["posts", "recommends"],
-    queryFn: getPostRecommend,
+    queryFn: getPostRecommends,
   });
   const dehydratedState = dehydrate(queryClient);
 
@@ -39,16 +26,7 @@ const Home = async () => {
         <TabProvider>
           <Tab />
           <PostForm />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <PostRecommends />
         </TabProvider>
       </HydrationBoundary>
     </main>
