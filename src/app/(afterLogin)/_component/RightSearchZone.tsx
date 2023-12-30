@@ -2,13 +2,36 @@
 
 import React from "react";
 import style from "./rightSearchZone.module.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SearchForm from "./SearchForm";
+
 const RightSearchZone = () => {
   const pathName = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   if (pathName === "/explore") return null;
-  const onChangeFollow = () => {};
-  const onChangeAll = () => {};
+  const onChangeFollow = () => {
+    // let url = `/search?q=${searchParams.get("q")}&pf=on`;
+    // if (searchParams.has("f")) {
+    //   url += `&f=${searchParams.get("f")}`;
+    // }
+    // router.replace(url);
+
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("pf", "on");
+    router.replace(`/search?${newSearchParams.toString()}`);
+  };
+  const onChangeAll = () => {
+    // let url = `/search?q=${searchParams.get("q")}`;
+    // if (searchParams.has("f")) {
+    //   url += `&f=${searchParams.get("f")}`;
+    // }
+    // router.replace(url);
+
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("pf");
+    router.replace(`/search?${newSearchParams.toString()}`);
+  };
 
   if (pathName === "/search") {
     return (
