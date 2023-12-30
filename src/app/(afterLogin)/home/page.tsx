@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import style from "./home.module.css";
 import Tab from "./_component/Tab";
 import TabProvider from "./_component/TabProvider";
@@ -12,25 +12,19 @@ import {
 import { getPostRecommends } from "./_lib/getPostRecommends";
 import PostRecommends from "./_component/PostRecommends";
 import TabDecider from "./_component/TabDecider";
+import TabDeciderSuspense from "./_component/TabDeciderSuspense";
+import Loading from "./loading";
 
 const Home = async () => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts", "recommends"],
-    queryFn: getPostRecommends,
-    initialPageParam: 0,
-  });
-  const dehydratedState = dehydrate(queryClient);
-
   return (
     <main className={style.main}>
-      <HydrationBoundary state={dehydratedState}>
-        <TabProvider>
-          <Tab />
-          <PostForm />
-          <TabDecider />
-        </TabProvider>
-      </HydrationBoundary>
+      <TabProvider>
+        <Tab />
+        <PostForm />
+        <Suspense fallback={<Loading />}>
+          <TabDeciderSuspense />
+        </Suspense>
+      </TabProvider>
     </main>
   );
 };

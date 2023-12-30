@@ -4,6 +4,7 @@ import {
   InfiniteData,
   useInfiniteQuery,
   useQuery,
+  useSuspenseInfiniteQuery,
 } from "@tanstack/react-query";
 import { getPostRecommends } from "../_lib/getPostRecommends";
 import Post from "../../_component/Post";
@@ -13,8 +14,8 @@ import { useInView } from "react-intersection-observer";
 import styles from "@/app/(afterLogin)/home/home.module.css";
 
 const PostRecommends = () => {
-  const { data, fetchNextPage, hasNextPage, isFetching, isPending, isError } =
-    useInfiniteQuery<
+  const { data, fetchNextPage, hasNextPage, isFetching } =
+    useSuspenseInfiniteQuery<
       IPost[],
       Object,
       InfiniteData<IPost[]>,
@@ -39,44 +40,6 @@ const PostRecommends = () => {
       !isFetching && hasNextPage && fetchNextPage();
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
-
-  if (isPending) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <svg
-          className={styles.loader}
-          height="100%"
-          viewBox="0 0 32 32"
-          width={40}
-        >
-          <circle
-            cx="16"
-            cy="16"
-            fill="none"
-            r="14"
-            strokeWidth="4"
-            style={{ stroke: "rgb(29, 155, 240)", opacity: 0.2 }}
-          ></circle>
-          <circle
-            cx="16"
-            cy="16"
-            fill="none"
-            r="14"
-            strokeWidth="4"
-            style={{
-              stroke: "rgb(29, 155, 240)",
-              strokeDasharray: 80,
-              strokeDashoffset: 60,
-            }}
-          ></circle>
-        </svg>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return "에러";
-  }
 
   return (
     <>
