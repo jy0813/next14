@@ -18,9 +18,9 @@ export default function ActionButtons({ white, post }: Props) {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
   const { postId } = post;
-  const commented = !!post.Comments?.find(
-    (v) => v.userId === session?.user?.email
-  );
+  // const commented = !!post.Comments?.find(
+  //   (v) => v.userId === session?.user?.email
+  // );
   const reposted = !!post.Reposts?.find(
     (v) => v.userId === session?.user?.email
   );
@@ -279,13 +279,7 @@ export default function ActionButtons({ white, post }: Props) {
 
   return (
     <div className={style.actionButtons}>
-      <div
-        className={cx(
-          style.commentButton,
-          { [style.commented]: commented },
-          white && style.white
-        )}
-      >
+      <div className={cx(style.commentButton, white && style.white)}>
         <button onClick={onClickComment}>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -293,7 +287,7 @@ export default function ActionButtons({ white, post }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{post._count.Comments || ""}</div>
+        <div className={style.count}>{post._count?.Comments || ""}</div>
       </div>
       <div
         className={cx(
@@ -309,7 +303,7 @@ export default function ActionButtons({ white, post }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{post._count.Reposts || ""}</div>
+        <div className={style.count}>{post._count?.Reposts || ""}</div>
       </div>
       <div
         className={cx([
@@ -325,7 +319,7 @@ export default function ActionButtons({ white, post }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{post._count.Hearts || ""}</div>
+        <div className={style.count}>{post._count?.Hearts || ""}</div>
       </div>
     </div>
   );
