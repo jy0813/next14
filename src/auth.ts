@@ -33,13 +33,14 @@ export const {
           cookies().set("connect.sid", parsed["connect.sid"], parsed); // 브라우저에 쿠키를 심어주는 것
         }
 
+        console.log(authResponse);
+
         if (!authResponse.ok) {
           return null;
         }
 
         const user = await authResponse.json();
-        console.log(authResponse);
-        console.log("user", user);
+
         return {
           email: user.id,
           name: user.nickname,

@@ -1,15 +1,16 @@
 "use client";
 
+import style from "@/app/(beforeLogin)/_components/login.module.css";
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
-import style from "./login.module.css";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react"; //client 에서는 next-auth/react 로 사용
+import { redirect, useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
-const Page = () => {
+export default function LoginModal() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -19,7 +20,9 @@ const Page = () => {
         password,
         redirect: false,
       });
-      if (!response?.ok) {
+
+      console.log(response);
+      if (response?.error) {
         setMessage("아이디와 비밀번호가 일치하지 않습니다.");
       } else {
         router.replace("/home");
@@ -40,6 +43,7 @@ const Page = () => {
   const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
     setPassword(e.target.value);
   };
+
   return (
     <div className={style.modalBackground}>
       <div className={style.modal}>
@@ -97,6 +101,4 @@ const Page = () => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}

@@ -14,13 +14,15 @@ import PostRecommends from "./_component/PostRecommends";
 import TabDecider from "./_component/TabDecider";
 import TabDeciderSuspense from "./_component/TabDeciderSuspense";
 import Loading from "./loading";
+import { auth } from "@/auth";
 
 const Home = async () => {
+  const session = await auth();
   return (
     <main className={style.main}>
       <TabProvider>
         <Tab />
-        <PostForm />
+        <PostForm me={session} />
         <Suspense fallback={<Loading />}>
           <TabDeciderSuspense />
         </Suspense>
