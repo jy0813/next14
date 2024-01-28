@@ -9,6 +9,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { auth } from "@/auth";
+import { getUserServer } from "./_lib/getUserServer";
 type Props = {
   params: { username: string };
 };
@@ -19,7 +20,7 @@ export default async function Profile({ params }: Props) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["users", username],
-    queryFn: getUser,
+    queryFn: getUserServer,
   });
   await queryClient.prefetchQuery({
     queryKey: ["posts", "users", username],
